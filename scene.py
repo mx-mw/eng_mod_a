@@ -215,7 +215,34 @@ class BP2(Scene):
 class Conclusion(Scene):
     def construct(self):        
         """Conclusion"""
-        # The human story is epitomised by a conflict between two types of hope
-        #
-        # Define Heteroglossia
+        Paragraph.set_default(color=GRAY_E, font_size=20)
+        MarkupText.set_default(color=GRAY_E, font_size=20)
+        Text.set_default(color=GRAY_E, font_size=20)
+        Tex.set_default(color=GRAY_E, font_size=40)
 
+
+        # The human story is epitomised by a conflict between two types of hope
+        hope = Text("The human story is one of a conflict between two types of hope")
+        hope_1 = Text("\t↳ We instinctually hope for things based of our \n\t  indvidiaul situations, that will therefore better our \n\t  individual lives, but because they are based on us \n\t  individually, these will inevitably conflict")
+        hope_2 = Text("\t↳ Often, our subconscious empathy leads us to hope \n\t  for the harmony and collectivisation of society, but these\n\t   hopes prevent us from following our reflexive,\n\t   self-focused hopes")
+        hope
+        hope_1.next_to(hope, DOWN + LEFT, .3, LEFT)
+        hope_2.next_to(hope_1, DOWN + LEFT, .2, LEFT)
+
+        hg = definition(self, "Heteroglossia", "A term coined by Mikhail Bakhtin to describe the ability and \ncharacteristic of language that allows it to convey \na variety of perspectives.", noun=True, show=False)
+
+        self.play(Create(hope))
+        self.wait()
+        self.play(hope.animate.shift(UP * 2))
+        self.wait()
+        self.play(Create(hg))
+        self.wait()
+        self.play(hope.animate.shift(DOWN + LEFT * 2), ReplacementTransform(hg, hope_1))
+        self.wait()
+        self.play(Create(hope_2))
+        self.wait()
+        
+        concl = Text("This conflict between these two types of hope is inevitable, and the challenge for humanity to \nprogress is to strike a productive balance between the two.")
+        self.play(ReplacementTransform(VGroup(hope_1, hope, hope_2), concl))
+        self.wait()
+        self.play(Uncreate(concl))
